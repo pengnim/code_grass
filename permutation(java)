@@ -1,0 +1,55 @@
+import java.util.Arrays;
+
+public class Permutation {
+	
+	public static boolean[] visited = new boolean[5];
+	public static int[] arr = { 1, 2, 3, 4, 5 };
+	
+	public static void main(String[] args) {
+
+		//n개에서 n개 뽑기 : n * (n-1) * (n-2) * ''' * 1 개
+		int[] result = new int[5];
+		permutation(result, 0);
+		
+		//n개에서 r개 뽑기 - 5개에서 3개 뽑기 : 5 * 4 * 3 개
+		int n = 5, r=3;
+		int[] result2 = new int[r];
+		permutation2(result2, 0, n, r);
+		
+	}
+
+	public static void permutation(int[] result, int depth) {
+		if (depth == arr.length) {
+			System.out.println(Arrays.toString(result));
+			return;
+		}
+
+		for (int i = 0; i < arr.length; i++) {
+			if (!visited[i]) {
+				visited[i] = true;
+				result[depth] = arr[i];
+				permutation(result, depth + 1);
+				visited[i] = false;
+			}
+		}
+
+	}
+	
+	public static void permutation2(int[] result, int depth, int n, int r) {
+		if (depth == r) {
+			System.out.println(Arrays.toString(result));
+			return;
+		}
+
+		for (int i = 0; i < n; i++) {
+			if (!visited[i]) {
+				visited[i] = true;
+				result[depth] = arr[i];
+				permutation2(result, depth + 1, n, r);
+				visited[i] = false;
+			}
+		}
+
+	}
+
+}
