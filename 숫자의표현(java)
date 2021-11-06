@@ -1,0 +1,23 @@
+class Solution {
+    public int solution(int n) {
+        int answer = 1;
+        int k = n/2 + 1;
+        int tmp = n;
+        for(int i = 1; i <= k; i++){
+            for(int j = i; j <=k; j++){
+                n = n-j;
+                if(n == 0){
+                    answer++;
+                    n = tmp;
+                    break;
+                }
+                else if(n < 0){
+                    n = tmp;
+                    break;
+                }
+            }
+        }
+        
+        return answer;
+    }
+}
