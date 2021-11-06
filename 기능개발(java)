@@ -1,0 +1,31 @@
+import java.util.Vector;
+
+class Solution {
+    public Vector<Integer> solution(int[] progresses, int[] speeds) {
+
+        Vector<Integer> answer = new Vector<Integer>();
+
+        for(int i = 0; i < progresses.length; i++){
+            // 남은 진도 : 100 - progresses
+            // 완료까지 걸리는 시간 : 남은 진도 / speeds 인데 5.x, 6.x 식으로 나오면 올림해주기
+            progresses[i] = (int)Math.ceil((float)(100 - progresses[i])/(float)speeds[i]);
+        }
+
+        int count= 0;
+        int maxx = progresses[0];
+
+        for(int i = 1; i < speeds.length; i++){
+            count++;
+            if(maxx < progresses[i]){
+                answer.add(count);
+                maxx = progresses[i];
+                count = 0;
+            }
+            if(i == speeds.length-1){ //마지막 배포
+                answer.add(count+1);
+            }
+        }
+        
+        return answer;
+    }
+}
