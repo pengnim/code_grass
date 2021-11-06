@@ -1,0 +1,70 @@
+class Solution {
+    char[]friends1 = {'A','C','F','J','M','N','R','T'};
+    int len = friends1.length;
+    boolean[] visited = new boolean[len];
+    int answer;
+    
+    public int solution(int n, String[] data) {
+        answer = 0;
+        char [] arr = new char[8];
+        permutation(arr, 0, n, data);
+        return answer;
+    }
+    
+    public void permutation(char[]arr, int depth, int n, String[] data){
+        if(depth == len){
+            result(arr, n, data);
+            return;
+        }
+        
+        for(int i = 0; i < len; i++){
+            if(!visited[i]){
+                visited[i] = true;
+                arr[depth] = friends1[i];
+                permutation(arr, depth+1, n, data);
+                visited[i] = false;
+            }
+        }
+    }
+    
+    public void result(char[]arr, int n, String[] data){
+        boolean chk = true;
+			for (int i = 0; i < n; i++) {
+				char a = data[i].charAt(0);
+				char b = data[i].charAt(2);
+				char c = data[i].charAt(3);
+				int d = (int) (data[i].charAt(4)) - 48;
+				int x = 0, y = 0;
+				for (int j = 0; j < len; j++) {
+					if (arr[j] == a) {
+						x = j;
+					} else if (arr[j] == b) {
+						y = j;
+					}
+				}
+                
+                int tmp = (int)(Math.abs(x-y))-1;
+                
+				if (c == '=') {
+					if (tmp != d) {
+						chk = false;
+						break;
+					}
+				} else if (c == '>') {
+					if (tmp<= d) {
+						chk = false;
+						break;
+					}
+				} else if (c == '<') {
+					if (tmp >= d) {
+						chk = false;
+						break;
+					}
+				}
+			}
+
+			if (chk)
+				answer++;
+    }
+    
+}
