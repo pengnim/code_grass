@@ -1,0 +1,24 @@
+
+class Solution {
+	int answer = 0;
+
+	void find(int[] numbers, int idx, int target, int sum) {
+		if (idx > numbers.length - 1) {
+			if (sum == target)
+				answer++;
+			return;
+		}
+		sum += numbers[idx];
+		find(numbers, idx + 1, target, sum);
+		sum = sum - (numbers[idx] * 2);
+		find(numbers, idx + 1, target, sum);
+
+	}
+
+	public int solution(int[] numbers, int target) {
+
+		find(numbers, 0, target, 0);
+
+		return answer;
+	}
+}
