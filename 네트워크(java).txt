@@ -1,0 +1,33 @@
+class Solution {
+			int visited[][];
+
+			void dfs(int num, int chk) {
+				for (int i = 0; i < visited[num].length; i++) {
+					if (visited[num][i] == 1 && visited[i][num] == 1) {
+						System.out.println(num + " " + i);
+						visited[num][i] = chk;
+						visited[i][num] = chk;
+						dfs(i, chk);
+					}
+				}
+				return;
+			}
+
+			public int solution(int n, int[][] computers) {
+				int answer = 0;
+				visited = computers;
+				int chk = 1;
+				for (int i = 0; i < n; i++) {
+					for (int j = 0; j < n; j++) {
+
+						if (visited[i][j] == 1) {
+							chk = chk + 1;
+							dfs(i, chk);
+						}
+					}
+					System.out.println();
+				}
+				answer = chk - 1;
+				return answer;
+			}
+		}
